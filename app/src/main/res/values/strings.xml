@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Habits</string>
+    <string name="save_habit">Save habit</string>
+    <string name="undo">Undo</string>
+    <string name="habit_deleted">Habit deleted</string>
+</resources>
