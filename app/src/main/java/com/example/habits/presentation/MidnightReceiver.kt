@@ -10,6 +10,7 @@ class MidnightReceiver : BroadcastReceiver() {
 
         Log.d("ALARM", "alarm")
 
+
     }
 
     companion object {

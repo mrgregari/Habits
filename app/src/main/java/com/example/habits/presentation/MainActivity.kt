@@ -1,13 +1,9 @@
 package com.example.habits.presentation
 
 import android.app.AlarmManager
-import android.app.Application
 import android.app.PendingIntent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.habits.R
 import java.util.Calendar
 

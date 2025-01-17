@@ -3,9 +3,7 @@ package com.example.habits.presentation.viewmodels
 import android.app.AlarmManager
 import android.app.Application
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Context.ALARM_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habits.data.HabitRepositoryImpl

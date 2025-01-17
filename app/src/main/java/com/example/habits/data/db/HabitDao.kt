@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.habits.data.HabitDbModel
 
 @Dao
@@ -21,4 +22,7 @@ interface HabitDao {
 
     @Query("SELECT * FROM habits WHERE id=:habitId LIMIT 1")
     suspend fun getHabit(habitId: Int): HabitDbModel
+
+    @Update
+    suspend fun updateHabitList(habitList: List<HabitDbModel>)
 }

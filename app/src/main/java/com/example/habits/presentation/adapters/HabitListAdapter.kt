@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.habits.databinding.HabitItemBinding
 import com.example.habits.domain.Habit
+import com.example.habits.domain.HabitState
 
 class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) {
     
@@ -24,7 +25,13 @@ class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) 
             with(habit) {
                 habitName.text = name
                 daysCount.text = days.toString()
-                habitButton.setBackgroundColor(Color.GREEN)
+
+                when (state) {
+                    HabitState.UNDONE -> habitButton.setBackgroundColor(Color.YELLOW)
+                    HabitState.DONE -> habitButton.setBackgroundColor(Color.GREEN)
+                    HabitState.FAILED -> habitButton.setBackgroundColor(Color.RED)
+                }
+
 
             }
         }

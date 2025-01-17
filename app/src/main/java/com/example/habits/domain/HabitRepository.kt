@@ -10,6 +10,8 @@ interface HabitRepository {
 
     suspend fun editHabit(habit: Habit)
 
+    suspend fun updateHabitList(habitList: List<Habit>)
+
     suspend fun getHabitById(habitId: Int): Habit
 
     fun getHabitList(): LiveData<List<Habit>>

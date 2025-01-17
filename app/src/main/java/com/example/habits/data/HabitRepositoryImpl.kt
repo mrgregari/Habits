@@ -26,6 +26,10 @@ class HabitRepositoryImpl(
         habitsDao.addHabit(mapper.mapEntityToDbModel(habit))
     }
 
+    override suspend fun updateHabitList(habitList: List<Habit>) {
+        habitsDao.updateHabitList(mapper.mapListEntityToListDbModel(habitList))
+    }
+
     override suspend fun getHabitById(habitId: Int): Habit {
         val dbModel = habitsDao.getHabit(habitId)
         return mapper.mapDbModelToEntity(dbModel)

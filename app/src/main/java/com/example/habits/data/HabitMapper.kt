@@ -22,4 +22,8 @@ class HabitMapper {
         mapDbModelToEntity(it)
     }
 
+    fun mapListEntityToListDbModel(listEntity : List<Habit>) = listEntity.map {
+        mapEntityToDbModel(it)
+    }
+
 }
