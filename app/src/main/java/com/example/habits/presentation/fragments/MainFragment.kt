@@ -46,6 +46,7 @@ class MainFragment : Fragment() {
         viewModel.habitList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+        setupHabitButtonClickListener()
 
 
     }
@@ -73,6 +74,12 @@ class MainFragment : Fragment() {
 
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun setupHabitButtonClickListener() {
+        adapter.onHabitButtonClickListener = {
+            viewModel.changeHabitState(it)
+        }
     }
 
     private fun setupSnackbar() {

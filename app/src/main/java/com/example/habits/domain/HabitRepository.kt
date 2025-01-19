@@ -15,4 +15,6 @@ interface HabitRepository {
     suspend fun getHabitById(habitId: Int): Habit
 
     fun getHabitList(): LiveData<List<Habit>>
+
+    suspend fun getHabitsListSync(): List<Habit>
 }

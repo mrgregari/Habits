@@ -25,4 +25,7 @@ interface HabitDao {
 
     @Update
     suspend fun updateHabitList(habitList: List<HabitDbModel>)
+
+    @Query("SELECT * FROM habits")
+    suspend fun getHabitsListSync(): List<HabitDbModel>
 }

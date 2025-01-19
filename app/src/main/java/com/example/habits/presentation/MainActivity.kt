@@ -36,14 +36,15 @@ class MainActivity : AppCompatActivity() {
 
          */
         val calendar = Calendar.getInstance()
-        calendar.add(Calendar.SECOND, 10)
+        calendar.add(Calendar.SECOND, 3)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
 
 
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
+            1000,
+            //AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
 

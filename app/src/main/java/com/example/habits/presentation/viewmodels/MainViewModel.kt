@@ -8,8 +8,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habits.data.HabitRepositoryImpl
 import com.example.habits.domain.Habit
+import com.example.habits.domain.HabitState
 import com.example.habits.domain.usecases.AddHabitUseCase
 import com.example.habits.domain.usecases.DeleteHabitUseCase
+import com.example.habits.domain.usecases.EditHabitUseCase
 import com.example.habits.domain.usecases.GetHabitListUseCase
 import com.example.habits.presentation.MidnightReceiver
 import kotlinx.coroutines.launch
@@ -22,10 +24,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val getHabitListUseCase = GetHabitListUseCase(repository)
     private val deleteHabitUseCase = DeleteHabitUseCase(repository)
     private val addHabitUseCase = AddHabitUseCase(repository)
+    private val editHabitUseCase = EditHabitUseCase(repository)
 
     val habitList = getHabitListUseCase.getHabitList()
 
     private lateinit var habitForDelete: Habit
+    private lateinit var habitState : HabitState
 
     fun deleteHabit(habit: Habit) {
         viewModelScope.launch {
@@ -41,7 +45,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun changeHabitState(habit: Habit) {
-
+        viewModelScope.launch {
+            habitState = when (habit.state) {
+                HabitState.UNDONE -> HabitState.DONE
+                HabitState.FAILED -> HabitState.FAILED
+                HabitState.DONE -> HabitState.DONE
+            }
+            val updatedHabit = habit.copy(state = habitState)
+            editHabitUseCase.editHabit(updatedHabit)
+        }
     }
 
 

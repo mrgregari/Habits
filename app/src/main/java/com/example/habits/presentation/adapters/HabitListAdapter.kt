@@ -9,7 +9,9 @@ import com.example.habits.domain.Habit
 import com.example.habits.domain.HabitState
 
 class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) {
-    
+
+    var onHabitButtonClickListener: ((Habit) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val binding = HabitItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -25,6 +27,9 @@ class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) 
             with(habit) {
                 habitName.text = name
                 daysCount.text = days.toString()
+                habitButton.setOnClickListener {
+                    onHabitButtonClickListener?.invoke(habit)
+                }
 
                 when (state) {
                     HabitState.UNDONE -> habitButton.setBackgroundColor(Color.YELLOW)

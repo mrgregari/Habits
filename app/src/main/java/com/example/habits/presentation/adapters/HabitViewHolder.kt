@@ -5,4 +5,5 @@ import com.example.habits.databinding.HabitItemBinding
 
 class HabitViewHolder(
     val binding: HabitItemBinding
-) : RecyclerView.ViewHolder(binding.root)
+) : RecyclerView.ViewHolder(binding.root) {
+}

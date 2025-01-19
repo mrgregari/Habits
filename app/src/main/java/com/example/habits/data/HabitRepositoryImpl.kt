@@ -42,4 +42,9 @@ class HabitRepositoryImpl(
             }
         }
 
+    override suspend fun getHabitsListSync(): List<Habit> {
+        return mapper.mapListDbModelToListEntity(habitsDao.getHabitsListSync())
+    }
+
+
 }

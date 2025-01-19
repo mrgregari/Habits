@@ -6,7 +6,7 @@ class UpdateHabitListUseCase(private val habitRepository: HabitRepository) {
 
     suspend fun updateHabitList() {
 
-        val habitList = habitRepository.getHabitList().value.orEmpty()
+        val habitList = habitRepository.getHabitsListSync()
         val updatedHabitList = habitList.map { habit ->
             habit.copy(state = habit.state.getNextState())
         }
