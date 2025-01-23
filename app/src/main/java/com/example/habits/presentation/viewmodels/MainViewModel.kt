@@ -5,6 +5,7 @@ import android.app.Application
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habits.data.HabitRepositoryImpl
 import com.example.habits.domain.Habit
@@ -16,20 +17,19 @@ import com.example.habits.domain.usecases.GetHabitListUseCase
 import com.example.habits.presentation.MidnightReceiver
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(
+    private val getHabitListUseCase: GetHabitListUseCase,
+    private val deleteHabitUseCase: DeleteHabitUseCase,
+    private val addHabitUseCase: AddHabitUseCase,
+    private val editHabitUseCase: EditHabitUseCase
+) : ViewModel() {
 
-    private val repository = HabitRepositoryImpl(application)
-
-    private val getHabitListUseCase = GetHabitListUseCase(repository)
-    private val deleteHabitUseCase = DeleteHabitUseCase(repository)
-    private val addHabitUseCase = AddHabitUseCase(repository)
-    private val editHabitUseCase = EditHabitUseCase(repository)
 
     val habitList = getHabitListUseCase.getHabitList()
 
     private lateinit var habitForDelete: Habit
-    private lateinit var habitState : HabitState
 
     fun deleteHabit(habit: Habit) {
         viewModelScope.launch {
@@ -46,17 +46,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun changeHabitState(habit: Habit) {
         viewModelScope.launch {
-            habitState = when (habit.state) {
-                HabitState.UNDONE -> HabitState.DONE
-                HabitState.FAILED -> HabitState.FAILED
-                HabitState.DONE -> HabitState.DONE
+            val habitDays = when (habit.state) {
+                HabitState.UNDONE -> habit.days + 1
+                HabitState.FAILED -> 1
+                else -> habit.days
             }
-            val updatedHabit = habit.copy(state = habitState)
+            val habitState = when (habit.state) {
+                HabitState.UNDONE -> HabitState.DONE
+                HabitState.FAILED -> HabitState.DONE
+                else -> habit.state
+            }
+
+            val updatedHabit = habit.copy(state = habitState, days = habitDays)
             editHabitUseCase.editHabit(updatedHabit)
+
         }
     }
 
 
+    /*
     fun setMidnightAlarm() {
         val alarmManager =
             getApplication<Application>().getSystemService(ALARM_SERVICE) as AlarmManager
@@ -94,4 +102,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
          */
     }
 
+
+     */
 }

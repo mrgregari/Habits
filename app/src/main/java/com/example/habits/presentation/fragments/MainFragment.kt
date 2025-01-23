@@ -1,6 +1,7 @@
 package com.example.habits.presentation.fragments
 
 import android.app.AlarmManager
+import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -11,15 +12,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits.R
 import com.example.habits.databinding.FragmentMainBinding
+import com.example.habits.presentation.HabitsApp
 import com.example.habits.presentation.adapters.HabitListAdapter
 import com.example.habits.presentation.viewmodels.MainViewModel
+import com.example.habits.presentation.viewmodels.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
@@ -27,12 +32,25 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val viewModel: MainViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy {
+        (requireActivity().application as HabitsApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
+
+    private lateinit var viewModel: MainViewModel
     private lateinit var adapter: HabitListAdapter
     private lateinit var snackbar: Snackbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
         setupSwipeListener(binding.habitList)
         setupSnackbar()

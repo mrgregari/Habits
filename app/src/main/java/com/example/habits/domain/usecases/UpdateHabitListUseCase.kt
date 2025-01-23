@@ -1,8 +1,11 @@
 package com.example.habits.domain.usecases
 
 import com.example.habits.domain.HabitRepository
+import javax.inject.Inject
 
-class UpdateHabitListUseCase(private val habitRepository: HabitRepository) {
+class UpdateHabitListUseCase @Inject constructor(
+    private val habitRepository: HabitRepository
+) {
 
     suspend fun updateHabitList() {
 

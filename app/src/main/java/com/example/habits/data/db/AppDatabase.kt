@@ -15,6 +15,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private var INSTANCE: AppDatabase? = null
         private val LOCK = Any()
+
         private const val DB_NAME = "habits.db"
 
         fun getInstance(application: Application): AppDatabase {
@@ -35,6 +36,8 @@ abstract class AppDatabase : RoomDatabase() {
             INSTANCE = db
             return db
         }
+
+
     }
 
 }

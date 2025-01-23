@@ -4,15 +4,18 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.example.habits.data.db.AppDatabase
+import com.example.habits.data.db.HabitDao
 import com.example.habits.domain.Habit
 import com.example.habits.domain.HabitRepository
+import javax.inject.Inject
 
-class HabitRepositoryImpl(
-    application: Application
+class HabitRepositoryImpl @Inject constructor(
+    private val habitsDao: HabitDao,
+    private val mapper: HabitMapper
 ) : HabitRepository {
 
-    val habitsDao = AppDatabase.getInstance(application).habitDao()
-    val mapper = HabitMapper()
+    //val habitsDao = AppDatabase.getInstance(application).habitDao()
+    //val mapper = HabitMapper()
 
     override suspend fun addHabit(habit: Habit) {
         habitsDao.addHabit(mapper.mapEntityToDbModel(habit))

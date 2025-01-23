@@ -9,12 +9,12 @@ import com.example.habits.domain.Habit
 import com.example.habits.domain.HabitState
 import com.example.habits.domain.usecases.AddHabitUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HabitViewModel(application: Application) : AndroidViewModel(application) {
+class HabitViewModel @Inject constructor(
+    private val addHabitUseCase: AddHabitUseCase
+) : ViewModel() {
 
-    private val repository = HabitRepositoryImpl(application)
-
-    private val addHabitUseCase = AddHabitUseCase(repository)
 
     fun addHabit(habitName: String) {
         viewModelScope.launch {
@@ -22,7 +22,6 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
             addHabitUseCase.addHabit(habit)
         }
     }
-
 
 
 }

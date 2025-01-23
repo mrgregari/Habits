@@ -1,8 +1,9 @@
 package com.example.habits.data
 
 import com.example.habits.domain.Habit
+import javax.inject.Inject
 
-class HabitMapper {
+class HabitMapper @Inject constructor(){
 
     fun mapDbModelToEntity(habitDbModel: HabitDbModel) = Habit(
         habitDbModel.id,

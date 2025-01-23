@@ -5,8 +5,9 @@ import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.example.habits.domain.usecases.UpdateHabitListUseCase
+import javax.inject.Inject
 
-class ChangeStateWorkerFactory (
+class ChangeStateWorkerFactory @Inject constructor(
     private val updateHabitListUseCase: UpdateHabitListUseCase
 ): WorkerFactory() {
     override fun createWorker(
