@@ -11,6 +11,7 @@ import com.example.habits.domain.HabitState
 class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) {
 
     var onHabitButtonClickListener: ((Habit) -> Unit)? = null
+    var onHabitLongClickListener: ((Habit) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val binding = HabitItemBinding.inflate(
@@ -25,6 +26,7 @@ class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) 
         val habit = getItem(position)
         with(holder.binding) {
             with(habit) {
+
                 habitName.text = name
                 daysCount.text = days.toString()
                 habitButton.setOnClickListener {
@@ -40,5 +42,10 @@ class HabitListAdapter : ListAdapter<Habit, HabitViewHolder>(HabitDiffCallback) 
 
             }
         }
+        holder.itemView.setOnLongClickListener {
+            onHabitLongClickListener?.invoke(habit)
+            true
+        }
     }
+
 }

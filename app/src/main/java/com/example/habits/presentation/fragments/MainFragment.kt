@@ -65,6 +65,7 @@ class MainFragment : Fragment() {
             adapter.submitList(it)
         }
         setupHabitButtonClickListener()
+        setupHabitLongClickListener()
 
 
     }
@@ -99,6 +100,14 @@ class MainFragment : Fragment() {
             viewModel.changeHabitState(it)
         }
     }
+
+    private fun setupHabitLongClickListener() {
+        adapter.onHabitLongClickListener = {
+            findNavController().navigate(R.id.action_mainFragment_to_habitBottomSheetFragment)
+
+        }
+    }
+
 
     private fun setupSnackbar() {
         snackbar = Snackbar.make(binding.constraint,

@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_mainFragment_to_habitFragment"
             app:destination="@id/habitFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_habitBottomSheetFragment"
+            app:destination="@id/habitBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/habitFragment"
@@ -22,4 +25,9 @@
             android:id="@+id/action_habitFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/habitBottomSheetFragment"
+        android:name="com.example.habits.presentation.fragments.HabitBottomSheetFragment"
+        android:label="fragment_habit_bottom_sheet"
+        tools:layout="@layout/fragment_habit_bottom_sheet" />
 </navigation>
